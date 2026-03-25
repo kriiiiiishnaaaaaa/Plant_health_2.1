@@ -21,7 +21,10 @@
         <a href="learn.html" class="nav-link hover:text-primary transition">Learn</a>
         <a href="history.html" class="nav-link hover:text-primary transition">History</a>
       </div>
-      <button id="menuBtn" class="md:hidden text-gray-600 text-2xl focus:outline-none"><i class="fas fa-bars"></i></button>
+      <div class="flex items-center gap-3">
+        <button onclick="document.getElementById('apiKeyModal').classList.remove('hidden')" class="text-gray-400 hover:text-primary text-lg" title="Set API Key"><i class="fas fa-key"></i></button>
+        <button id="menuBtn" class="md:hidden text-gray-600 text-2xl focus:outline-none"><i class="fas fa-bars"></i></button>
+      </div>
     </div>
     <div id="mobileMenu" class="hidden md:hidden bg-white border-t px-4 pb-4">
       <a href="index.html" class="block py-2 text-gray-600 hover:text-primary">Home</a>
@@ -31,6 +34,20 @@
       <a href="history.html" class="block py-2 text-gray-600 hover:text-primary">History</a>
     </div>
   </nav>
+
+  <!-- API Key Modal -->
+  <div id="apiKeyModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center px-4">
+    <div class="bg-white rounded-3xl p-8 shadow-2xl max-w-md w-full">
+      <div class="text-center mb-6">
+        <div class="text-5xl mb-3">🔑</div>
+        <h2 class="text-2xl font-extrabold text-dark">Enter Groq API Key</h2>
+        <p class="text-gray-500 text-sm mt-2">Required once — saved in your browser, never sent anywhere else.</p>
+      </div>
+      <input id="apiKeyInput" type="password" placeholder="gsk_..." class="w-full border border-green-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-green-100 mb-4 font-mono"/>
+      <button onclick="saveApiKey()" class="w-full btn-primary py-3 rounded-xl font-bold text-lg">Save & Continue</button>
+      <p class="text-center text-xs text-gray-400 mt-3">Get a free key at <a href="https://console.groq.com" target="_blank" class="text-primary underline">console.groq.com</a></p>
+    </div>
+  </div>
 
   <main class="flex-1">
     <div class="max-w-4xl mx-auto px-4 py-12">
@@ -200,6 +217,18 @@
       document.getElementById('resultContent').innerHTML = `<div class="text-center py-8"><div class="text-4xl mb-3">❌</div><p class="text-red-600 font-medium">${msg}</p></div>`;
       document.getElementById('resultCard').classList.remove('hidden');
       document.getElementById('placeholderCard').classList.add('hidden');
+    }
+
+    function saveApiKey() {
+      const key = document.getElementById('apiKeyInput').value.trim();
+      if (!key) return;
+      localStorage.setItem('gm_groq_key', key);
+      document.getElementById('apiKeyModal').classList.add('hidden');
+    }
+
+    // Auto-show modal if no key saved
+    if (!localStorage.getItem('gm_groq_key')) {
+      document.getElementById('apiKeyModal').classList.remove('hidden');
     }
   </script>
 </body>
