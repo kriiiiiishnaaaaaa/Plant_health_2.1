@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Diagnose — Grow Mate AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="static/css/style.css"/>
+  <script>tailwind.config={theme:{extend:{colors:{primary:'#16a34a',secondary:'#15803d',accent:'#bbf7d0',dark:'#14532d',soft:'#f0fdf4'},fontFamily:{poppins:['Poppins','sans-serif']}}}}</script>
+</head>
+<body class="font-poppins bg-soft min-h-screen flex flex-col">
+  <nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-primary font-bold text-xl"><span class="text-2xl">🌿</span> Grow Mate AI</a>
+      <div class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
+        <a href="index.html" class="nav-link hover:text-primary transition">Home</a>
+        <a href="diagnose.html" class="nav-link hover:text-primary transition">Diagnose</a>
+        <a href="buddy.html" class="nav-link hover:text-primary transition">Plant Buddy</a>
+        <a href="learn.html" class="nav-link hover:text-primary transition">Learn</a>
+        <a href="history.html" class="nav-link hover:text-primary transition">History</a>
+      </div>
+      <button id="menuBtn" class="md:hidden text-gray-600 text-2xl focus:outline-none"><i class="fas fa-bars"></i></button>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-t px-4 pb-4">
+      <a href="index.html" class="block py-2 text-gray-600 hover:text-primary">Home</a>
+      <a href="diagnose.html" class="block py-2 text-gray-600 hover:text-primary">Diagnose</a>
+      <a href="buddy.html" class="block py-2 text-gray-600 hover:text-primary">Plant Buddy</a>
+      <a href="learn.html" class="block py-2 text-gray-600 hover:text-primary">Learn</a>
+      <a href="history.html" class="block py-2 text-gray-600 hover:text-primary">History</a>
+    </div>
+  </nav>
+
+  <main class="flex-1">
+    <div class="max-w-4xl mx-auto px-4 py-12">
+      <div class="text-center mb-10">
+        <h1 class="text-4xl font-extrabold text-dark mb-2">🔬 Diagnose Your Plant</h1>
+        <p class="text-gray-500">Upload a clear photo of a leaf and our AI will analyze it instantly.</p>
+      </div>
+
+      <div class="flex justify-center mb-8">
+        <div class="bg-white rounded-full shadow px-2 py-1 flex gap-1 border border-green-100">
+          <button onclick="setLang('en')" id="lang-en" class="lang-btn active px-4 py-2 rounded-full text-sm font-medium transition-all">🇬🇧 English</button>
+          <button onclick="setLang('hi')" id="lang-hi" class="lang-btn px-4 py-2 rounded-full text-sm font-medium transition-all">🇮🇳 Hindi</button>
+          <button onclick="setLang('bn')" id="lang-bn" class="lang-btn px-4 py-2 rounded-full text-sm font-medium transition-all">🇧🇩 Bengali</button>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-3xl shadow-md p-8 border border-green-50">
+          <h2 class="font-bold text-dark text-xl mb-4"><i class="fas fa-upload text-primary mr-2"></i>Upload Leaf Image</h2>
+          <div id="dropZone" class="border-2 border-dashed border-green-300 rounded-2xl p-8 text-center cursor-pointer hover:border-primary hover:bg-green-50 transition-all mb-4">
+            <div id="dropContent">
+              <div class="text-5xl mb-3">🍃</div>
+              <p class="text-gray-500 font-medium">Drag & drop your image here</p>
+              <p class="text-gray-400 text-sm mt-1">or click to browse</p>
+              <p class="text-gray-300 text-xs mt-2">JPG, PNG, WEBP · Max 10MB</p>
+            </div>
+            <img id="previewImg" class="hidden mx-auto max-h-56 rounded-xl mt-2 object-contain" alt="Preview"/>
+          </div>
+          <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.webp" class="hidden"/>
+          <button id="analyzeBtn" onclick="analyzeImage()" class="w-full btn-primary py-3 rounded-xl font-bold text-lg mt-2 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+            <i class="fas fa-microscope mr-2"></i> Analyze Plant
+          </button>
+        </div>
+
+        <div id="resultCard" class="bg-white rounded-3xl shadow-md p-8 border border-green-50 hidden">
+          <h2 class="font-bold text-dark text-xl mb-4"><i class="fas fa-clipboard-list text-primary mr-2"></i>Diagnosis Result</h2>
+          <div id="resultContent"></div>
+        </div>
+
+        <div id="placeholderCard" class="bg-white rounded-3xl shadow-md p-8 border border-green-50 flex flex-col items-center justify-center text-center">
+          <div class="text-6xl mb-4">🌿</div>
+          <h3 class="text-dark font-semibold text-lg mb-2">Your result will appear here</h3>
+          <p class="text-gray-400 text-sm">Upload a leaf photo and click Analyze to get started.</p>
+        </div>
+      </div>
+
+      <div id="loadingOverlay" class="hidden fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center">
+        <div class="bg-white rounded-3xl p-10 text-center shadow-2xl max-w-xs mx-4">
+          <div class="text-5xl mb-4 animate-spin-slow">🌱</div>
+          <p class="font-bold text-dark text-lg">Analyzing your plant...</p>
+          <p class="text-gray-400 text-sm mt-1">AI is working its magic</p>
+          <div class="loading-dots mt-4"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-dark text-white py-8 mt-12">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p class="text-accent font-semibold text-lg mb-1">🌿 Grow Mate AI</p>
+      <p class="text-green-300 text-sm">AI-powered plant health detection for everyone.</p>
+      <p class="text-green-500 text-xs mt-3">© 2025 Md Irfan Alam · Usha Martin University · Diploma in CSE</p>
+    </div>
+  </footer>
+
+  <script src="static/js/app.js"></script>
+  <script>
+    let selectedLang = 'en';
+    let selectedFile = null;
+    let selectedBase64 = null;
+    let selectedMime = null;
+
+    function setLang(lang) {
+      selectedLang = lang;
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('lang-' + lang).classList.add('active');
+    }
+
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const previewImg = document.getElementById('previewImg');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const dropContent = document.getElementById('dropContent');
+
+    dropZone.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', e => handleFile(e.target.files[0]));
+    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('border-primary','bg-green-50'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('border-primary','bg-green-50'));
+    dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('border-primary','bg-green-50'); handleFile(e.dataTransfer.files[0]); });
+
+    function handleFile(file) {
+      if (!file) return;
+      selectedFile = file;
+      selectedMime = file.type || 'image/jpeg';
+      const reader = new FileReader();
+      reader.onload = e => {
+        const dataUrl = e.target.result;
+        selectedBase64 = dataUrl.split(',')[1];
+        previewImg.src = dataUrl;
+        previewImg.classList.remove('hidden');
+        dropContent.classList.add('hidden');
+        analyzeBtn.disabled = false;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function analyzeImage() {
+      if (!selectedBase64) return;
+      document.getElementById('loadingOverlay').classList.remove('hidden');
+      try {
+        const data = await groqAnalyzePlant(selectedBase64, selectedMime, selectedLang);
+        document.getElementById('loadingOverlay').classList.add('hidden');
+        if (data.error) { showError(data.error); return; }
+        showResult(data);
+        saveToHistory(data);
+        addPoints(10);
+      } catch (err) {
+        document.getElementById('loadingOverlay').classList.add('hidden');
+        showError('Something went wrong: ' + err.message);
+      }
+    }
+
+    function saveToHistory(data) {
+      const history = JSON.parse(localStorage.getItem('gm_history') || '[]');
+      const now = new Date();
+      history.unshift({
+        date: now.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' }) + ', ' + now.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' }),
+        plant_type: data.plant_type || 'Unknown',
+        status: data.status || 'Unknown',
+        disease_name: data.disease_name || 'None',
+        severity: data.severity || 'None',
+        confidence: data.confidence || 'Medium'
+      });
+      localStorage.setItem('gm_history', JSON.stringify(history.slice(0, 20)));
+    }
+
+    function addPoints(pts) {
+      const points = parseInt(localStorage.getItem('gm_points') || '0') + pts;
+      const scans = parseInt(localStorage.getItem('gm_scans') || '0') + 1;
+      localStorage.setItem('gm_points', points);
+      localStorage.setItem('gm_scans', scans);
+    }
+
+    function showResult(data) {
+      const isHealthy = data.status === 'Healthy';
+      const statusColor = isHealthy ? 'bg-green-100 text-green-700 border-green-200' : 'bg-red-100 text-red-700 border-red-200';
+      const statusIcon = isHealthy ? '✅' : '⚠️';
+      const severityColor = { None: 'text-green-600', Mild: 'text-yellow-600', Moderate: 'text-orange-600', Severe: 'text-red-600' }[data.severity] || 'text-gray-600';
+      const tips = (data.care_tips || []).map(t => `<li class="flex items-start gap-2"><span class="text-primary mt-0.5">•</span><span>${t}</span></li>`).join('');
+      document.getElementById('resultContent').innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <span class="${statusColor} border px-4 py-1.5 rounded-full font-bold text-sm">${statusIcon} ${data.status}</span>
+            <span class="text-xs text-gray-400 bg-gray-100 px-3 py-1 rounded-full">Confidence: ${data.confidence}</span>
+          </div>
+          <div><p class="text-xs text-gray-400 uppercase tracking-wide font-semibold">Plant Type</p><p class="font-semibold text-dark">${data.plant_type || 'Unknown'}</p></div>
+          ${!isHealthy ? `<div><p class="text-xs text-gray-400 uppercase tracking-wide font-semibold">Disease</p><p class="font-semibold text-red-600">${data.disease_name || 'Unknown'}</p><p class="text-xs ${severityColor} font-medium mt-0.5">Severity: ${data.severity}</p></div>` : ''}
+          <div><p class="text-xs text-gray-400 uppercase tracking-wide font-semibold">Description</p><p class="text-gray-600 text-sm leading-relaxed">${data.description}</p></div>
+          <div><p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-2">Care Tips</p><ul class="space-y-1 text-sm text-gray-600">${tips}</ul></div>
+          <div class="bg-green-50 rounded-xl p-3 text-center"><span class="text-green-700 text-sm font-medium">+10 points earned! 🎉</span></div>
+        </div>`;
+      document.getElementById('resultCard').classList.remove('hidden');
+      document.getElementById('placeholderCard').classList.add('hidden');
+    }
+
+    function showError(msg) {
+      document.getElementById('resultContent').innerHTML = `<div class="text-center py-8"><div class="text-4xl mb-3">❌</div><p class="text-red-600 font-medium">${msg}</p></div>`;
+      document.getElementById('resultCard').classList.remove('hidden');
+      document.getElementById('placeholderCard').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plant Buddy — Grow Mate AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="static/css/style.css"/>
+  <script>tailwind.config={theme:{extend:{colors:{primary:'#16a34a',secondary:'#15803d',accent:'#bbf7d0',dark:'#14532d',soft:'#f0fdf4'},fontFamily:{poppins:['Poppins','sans-serif']}}}}</script>
+</head>
+<body class="font-poppins bg-soft min-h-screen flex flex-col">
+  <nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-primary font-bold text-xl"><span class="text-2xl">🌿</span> Grow Mate AI</a>
+      <div class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
+        <a href="index.html" class="nav-link hover:text-primary transition">Home</a>
+        <a href="diagnose.html" class="nav-link hover:text-primary transition">Diagnose</a>
+        <a href="buddy.html" class="nav-link hover:text-primary transition">Plant Buddy</a>
+        <a href="learn.html" class="nav-link hover:text-primary transition">Learn</a>
+        <a href="history.html" class="nav-link hover:text-primary transition">History</a>
+      </div>
+      <button id="menuBtn" class="md:hidden text-gray-600 text-2xl focus:outline-none"><i class="fas fa-bars"></i></button>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-t px-4 pb-4">
+      <a href="index.html" class="block py-2 text-gray-600 hover:text-primary">Home</a>
+      <a href="diagnose.html" class="block py-2 text-gray-600 hover:text-primary">Diagnose</a>
+      <a href="buddy.html" class="block py-2 text-gray-600 hover:text-primary">Plant Buddy</a>
+      <a href="learn.html" class="block py-2 text-gray-600 hover:text-primary">Learn</a>
+      <a href="history.html" class="block py-2 text-gray-600 hover:text-primary">History</a>
+    </div>
+  </nav>
+
+  <main class="flex-1">
+    <div class="max-w-3xl mx-auto px-4 py-12">
+      <div class="text-center mb-10">
+        <h1 class="text-4xl font-extrabold text-dark mb-2">🌸 My Plant Buddy</h1>
+        <p class="text-gray-500">Name your AI plant companion, earn points, and level up!</p>
+      </div>
+
+      <div class="bg-white rounded-3xl shadow-lg p-8 border border-green-100 mb-8">
+        <div class="flex flex-col items-center text-center mb-6">
+          <div id="buddyEmoji" class="text-8xl mb-4 buddy-float">🌱</div>
+          <h2 id="buddyNameDisplay" class="text-3xl font-extrabold text-dark">Leafy</h2>
+          <p id="buddyMood" class="text-gray-500 mt-1 italic">Waiting for first scan...</p>
+        </div>
+        <div class="grid grid-cols-3 gap-4 mb-6">
+          <div class="stat-box bg-green-50 rounded-2xl p-4 text-center"><p class="text-3xl font-extrabold text-primary" id="pointsDisplay">0</p><p class="text-xs text-gray-500 mt-1 font-medium">Points</p></div>
+          <div class="stat-box bg-blue-50 rounded-2xl p-4 text-center"><p class="text-3xl font-extrabold text-blue-500" id="scansDisplay">0</p><p class="text-xs text-gray-500 mt-1 font-medium">Scans Done</p></div>
+          <div class="stat-box bg-yellow-50 rounded-2xl p-4 text-center"><p class="text-3xl font-extrabold text-yellow-500" id="levelDisplay">1</p><p class="text-xs text-gray-500 mt-1 font-medium">Level</p></div>
+        </div>
+        <div class="mb-6">
+          <div class="flex justify-between text-xs text-gray-400 mb-1"><span>XP Progress</span><span id="xpText">0/50 XP to next level</span></div>
+          <div class="bg-gray-100 rounded-full h-3"><div id="xpBar" class="bg-gradient-to-r from-green-400 to-primary h-3 rounded-full transition-all duration-500" style="width:0%"></div></div>
+        </div>
+        <div class="flex gap-3">
+          <input id="nameInput" type="text" placeholder="Rename your buddy..." maxlength="20" class="flex-1 border border-green-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-green-100"/>
+          <button onclick="renameBuddy()" class="btn-primary px-6 py-2.5 rounded-xl font-semibold text-sm">Rename</button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl shadow-md p-8 border border-green-50 mb-8">
+        <h3 class="font-bold text-dark text-xl mb-6">🏅 Badges</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="badgeGrid"></div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <a href="diagnose.html" class="btn-primary rounded-2xl p-5 text-center font-bold shadow-md hover:shadow-lg transition-all"><div class="text-3xl mb-1">🔬</div>Scan a Plant</a>
+        <a href="learn.html" class="bg-white border border-green-200 text-dark rounded-2xl p-5 text-center font-bold shadow-sm hover:shadow-md hover:border-primary transition-all"><div class="text-3xl mb-1">📚</div>Learn More</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-dark text-white py-8 mt-12">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p class="text-accent font-semibold text-lg mb-1">🌿 Grow Mate AI</p>
+      <p class="text-green-300 text-sm">AI-powered plant health detection for everyone.</p>
+      <p class="text-green-500 text-xs mt-3">© 2025 Md Irfan Alam · Usha Martin University · Diploma in CSE</p>
+    </div>
+  </footer>
+
+  <script src="static/js/app.js"></script>
+  <script>
+    const points = parseInt(localStorage.getItem('gm_points') || '0');
+    const scans  = parseInt(localStorage.getItem('gm_scans')  || '0');
+    const buddyName = localStorage.getItem('gm_buddy_name') || 'Leafy';
+
+    document.getElementById('buddyNameDisplay').textContent = buddyName;
+    document.getElementById('pointsDisplay').textContent = points;
+    document.getElementById('scansDisplay').textContent = scans;
+    document.getElementById('levelDisplay').textContent = Math.floor(points / 50) + 1;
+    document.getElementById('xpText').textContent = `${points % 50}/50 XP to next level`;
+    document.getElementById('xpBar').style.width = ((points % 50) / 50 * 100) + '%';
+
+    const badges = [
+      { icon:'🌱', name:'First Scan',   desc:'Complete your first scan', unlocked: scans >= 1  },
+      { icon:'🔬', name:'Lab Rat',      desc:'Complete 5 scans',         unlocked: scans >= 5  },
+      { icon:'🌿', name:'Plant Lover',  desc:'Complete 10 scans',        unlocked: scans >= 10 },
+      { icon:'⭐', name:'Star Grower',  desc:'Earn 50 points',           unlocked: points >= 50  },
+      { icon:'🏆', name:'Champion',     desc:'Earn 100 points',          unlocked: points >= 100 },
+      { icon:'🌸', name:'Bloom Expert', desc:'Earn 200 points',          unlocked: points >= 200 },
+      { icon:'🍀', name:'Lucky Leaf',   desc:'Find a healthy plant',     unlocked: scans >= 3  },
+      { icon:'🌻', name:'Sun Seeker',   desc:'Complete 20 scans',        unlocked: scans >= 20 },
+    ];
+
+    document.getElementById('badgeGrid').innerHTML = badges.map(b => `
+      <div class="badge-card rounded-2xl p-4 text-center border-2 transition-all ${b.unlocked ? 'border-green-200 bg-green-50' : 'border-gray-100 bg-gray-50 opacity-50'}">
+        <div class="text-3xl mb-1">${b.icon}</div>
+        <p class="text-xs font-bold text-dark">${b.name}</p>
+        <p class="text-xs text-gray-400">${b.desc}</p>
+        ${b.unlocked ? '<p class="text-xs text-primary font-semibold mt-1">✅ Earned</p>' : '<p class="text-xs text-gray-300 mt-1">🔒 Locked</p>'}
+      </div>`).join('');
+
+    const moods = [[0,'😴','Needs some attention...'],[1,'😊','Happy to meet you!'],[5,'😄','Feeling energetic!'],[10,'🤩','On fire! Keep going!'],[20,'🌟','A true Plant Champion!']];
+    let emoji = '🌱', mood = 'Waiting for first scan...';
+    for (const [t, e, m] of moods) { if (scans >= t) { emoji = e; mood = m; } }
+    document.getElementById('buddyEmoji').textContent = emoji;
+    document.getElementById('buddyMood').textContent = mood;
+
+    function renameBuddy() {
+      const name = document.getElementById('nameInput').value.trim().slice(0, 20);
+      if (!name) return;
+      localStorage.setItem('gm_buddy_name', name);
+      document.getElementById('buddyNameDisplay').textContent = name;
+      document.getElementById('nameInput').value = '';
+      showToast('Buddy renamed to ' + name + '! 🎉');
+    }
+
+    function showToast(msg) {
+      const t = document.createElement('div');
+      t.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 bg-dark text-white px-6 py-3 rounded-full text-sm font-medium shadow-xl z-50';
+      t.textContent = msg;
+      document.body.appendChild(t);
+      setTimeout(() => t.remove(), 3000);
+    }
+  </script>
+</body>
+</html>

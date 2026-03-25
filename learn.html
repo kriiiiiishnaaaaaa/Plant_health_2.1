@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Learn — Grow Mate AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="static/css/style.css"/>
+  <script>tailwind.config={theme:{extend:{colors:{primary:'#16a34a',secondary:'#15803d',accent:'#bbf7d0',dark:'#14532d',soft:'#f0fdf4'},fontFamily:{poppins:['Poppins','sans-serif']}}}}</script>
+</head>
+<body class="font-poppins bg-soft min-h-screen flex flex-col">
+  <nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-primary font-bold text-xl"><span class="text-2xl">🌿</span> Grow Mate AI</a>
+      <div class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
+        <a href="index.html" class="nav-link hover:text-primary transition">Home</a>
+        <a href="diagnose.html" class="nav-link hover:text-primary transition">Diagnose</a>
+        <a href="buddy.html" class="nav-link hover:text-primary transition">Plant Buddy</a>
+        <a href="learn.html" class="nav-link hover:text-primary transition">Learn</a>
+        <a href="history.html" class="nav-link hover:text-primary transition">History</a>
+      </div>
+      <button id="menuBtn" class="md:hidden text-gray-600 text-2xl focus:outline-none"><i class="fas fa-bars"></i></button>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-t px-4 pb-4">
+      <a href="index.html" class="block py-2 text-gray-600 hover:text-primary">Home</a>
+      <a href="diagnose.html" class="block py-2 text-gray-600 hover:text-primary">Diagnose</a>
+      <a href="buddy.html" class="block py-2 text-gray-600 hover:text-primary">Plant Buddy</a>
+      <a href="learn.html" class="block py-2 text-gray-600 hover:text-primary">Learn</a>
+      <a href="history.html" class="block py-2 text-gray-600 hover:text-primary">History</a>
+    </div>
+  </nav>
+
+  <main class="flex-1">
+    <div class="max-w-5xl mx-auto px-4 py-12">
+      <div class="text-center mb-10">
+        <h1 class="text-4xl font-extrabold text-dark mb-2">📚 Plant Disease Library</h1>
+        <p class="text-gray-500">Learn about common plant diseases, symptoms, and how to treat them.</p>
+      </div>
+      <div class="max-w-lg mx-auto mb-10">
+        <div class="relative">
+          <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+          <input id="searchInput" type="text" placeholder="Search diseases or plants..." class="w-full pl-12 pr-4 py-3 rounded-full border border-green-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-green-100 bg-white shadow-sm"/>
+        </div>
+      </div>
+      <div id="diseaseGrid" class="grid md:grid-cols-2 gap-6">
+        <div class="disease-card bg-white rounded-2xl shadow-sm border border-green-50 overflow-hidden hover:shadow-md transition-all">
+          <div class="bg-gradient-to-r from-yellow-400 to-orange-400 p-4 text-white"><h3 class="font-bold text-xl">🍂 Leaf Blight</h3><span class="text-xs bg-white bg-opacity-30 px-2 py-0.5 rounded-full">Fungal</span></div>
+          <div class="p-5"><p class="text-gray-600 text-sm mb-3">Brown, water-soaked lesions that spread rapidly across the leaf surface. Commonly affects rice, tomato, and wheat.</p><div class="mb-3"><p class="text-xs font-semibold text-gray-400 uppercase mb-1">Symptoms</p><p class="text-sm text-gray-600">Yellowing edges, brown patches, wilting, premature leaf drop.</p></div><div><p class="text-xs font-semibold text-gray-400 uppercase mb-1">Treatment</p><ul class="text-sm text-gray-600 space-y-1"><li>• Apply copper-based fungicide</li><li>• Remove infected leaves</li><li>• Avoid overhead watering</li></ul></div><span class="inline-block mt-3 text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium">⚠️ Moderate Risk</span></div>
+        </div>
+        <div class="disease-card bg-white rounded-2xl shadow-sm border border-green-50 overflow-hidden hover:shadow-md transition-all">
+          <div class="bg-gradient-to-r from-gray-500 to-gray-700 p-4 text-white"><h3 class="font-bold text-xl">⬛ Powdery Mildew</h3><span class="text-xs bg-white bg-opacity-30 px-2 py-0.5 rounded-full">Fungal</span></div>
+          <div class="p-5"><p class="text-gray-600 text-sm mb-3">White powdery coating on leaf surfaces. Thrives in dry, warm conditions with high humidity.</p><div class="mb-3"><p class="text-xs font-semibold text-gray-400 uppercase mb-1">Symptoms</p><p class="text-sm text-gray-600">White powder on leaves, curling, yellowing, stunted growth.</p></div><div><p class="text-xs font-semibold text-gray-400 uppercase mb-1">Treatment</p><ul class="text-sm text-gray-600 space-y-1"><li>• Spray baking soda + water mix</li><li>• Apply neem oil weekly</li><li>• Improve air circulation</li></ul></div><span class="inline-block mt-3 text-xs bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full font-medium">⚠️ Mild Risk</span></div>
+        </div>
+        <div class="disease-card bg-white rounded-2xl shadow-sm border border-green-50 overflow-hidden hover:shadow-md transition-all">
+          <div class="bg-gradient-to-r from-red-500 to-rose-600 p-4 text-white"><h3 class="font-bold text-xl">🔴 Bacterial Spot</h3><span class="text-xs bg-white bg-opacity-30 px-2 py-0.5 rounded-full">Bacterial</span></div>
+          <div class="p-5"><p class="text-gray-600 text-sm mb-3">Small, water-soaked spots that turn dark brown or black. Common in tomatoes, peppers, and stone fruits.</p><div class="mb-3"><p class="text-xs font-semibold text-gray-400 uppercase mb-1">Symptoms</p><p class="text-sm text-gray-600">Dark spots with yellow halos, greasy lesions, fruit blemishes.</p></div><div><p class="text-xs font-semibold text-gray-400 uppercase mb-1">Treatment</p><ul class="text-sm text-gray-600 space-y-1"><li>• Use copper bactericides</li><li>• Avoid wetting leaves while watering</li><li>• Remove and burn infected parts</li></ul></div><span class="inline-block mt-3 text-xs bg-red-100 text-red-700 px-3 py-1 rounded-full font-medium">🔴 High Risk</span></div>
+        </div>
+        <div class="disease-card bg-white rounded-2xl shadow-sm border border-green-50 overflow-hidden hover:shadow-md transition-all">
+          <div class="p-4 text-white" style="background:linear-gradient(to right,#92400e,#b45309)"><h3 class="font-bold text-xl">🟫 Early Blight</h3><span class="text-xs bg-white bg-opacity-30 px-2 py-0.5 rounded-full">Fungal</span></div>
+          <div class="p-5"><p class="text-gray-600 text-sm mb-3">Circular brown lesions with concentric rings. Major problem in tomatoes and potatoes.</p><div class="mb-3"><p class="text-xs font-semibold text-gray-400 uppercase mb-1">Symptoms</p><p class="text-sm text-gray-600">Dark concentric rings on lower leaves, yellowing around lesions.</p></div><div><p class="text-xs font-semibold text-gray-400 uppercase mb-1">Treatment</p><ul class="text-sm text-gray-600 space-y-1"><li>• Apply chlorothalonil fungicide</li><li>• Mulch around plants</li><li>• Water at base, not foliage</li></ul></div><span class="inline-block mt-3 text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium">⚠️ Moderate Risk</span></div>
+        </div>
+        <div class="disease-card bg-white rounded-2xl shadow-sm border border-green-50 overflow-hidden hover:shadow-md transition-all">
+          <div class="bg-gradient-to-r from-green-600 to-teal-600 p-4 text-white"><h3 class="font-bold text-xl">✅ Healthy Plant</h3><span class="text-xs bg-white bg-opacity-30 px-2 py-0.5 rounded-full">No Disease</span></div>
+          <div class="p-5"><p class="text-gray-600 text-sm mb-3">A healthy plant has vibrant green leaves, no spots, and firm structure.</p><div class="mb-3"><p class="text-xs font-semibold text-gray-400 uppercase mb-1">Signs of Health</p><p class="text-sm text-gray-600">Deep green color, no yellowing, uniform texture, upright posture.</p></div><div><p class="text-xs font-semibold text-gray-400 uppercase mb-1">Maintenance Tips</p><ul class="text-sm text-gray-600 space-y-1"><li>• Water consistently (not over-water)</li><li>• Ensure adequate sunlight</li><li>• Use balanced fertilizer monthly</li></ul></div><span class="inline-block mt-3 text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-medium">✅ No Risk</span></div>
+        </div>
+        <div class="disease-card bg-white rounded-2xl shadow-sm border border-green-50 overflow-hidden hover:shadow-md transition-all">
+          <div class="bg-gradient-to-r from-purple-500 to-violet-600 p-4 text-white"><h3 class="font-bold text-xl">🟣 Leaf Rust</h3><span class="text-xs bg-white bg-opacity-30 px-2 py-0.5 rounded-full">Fungal</span></div>
+          <div class="p-5"><p class="text-gray-600 text-sm mb-3">Orange-brown pustules on the underside of leaves. Common in wheat, beans, and roses.</p><div class="mb-3"><p class="text-xs font-semibold text-gray-400 uppercase mb-1">Symptoms</p><p class="text-sm text-gray-600">Rusty orange spore pustules, yellow spots on top surface, defoliation.</p></div><div><p class="text-xs font-semibold text-gray-400 uppercase mb-1">Treatment</p><ul class="text-sm text-gray-600 space-y-1"><li>• Apply propiconazole fungicide</li><li>• Destroy infected crop residue</li><li>• Use resistant varieties</li></ul></div><span class="inline-block mt-3 text-xs bg-red-100 text-red-700 px-3 py-1 rounded-full font-medium">🔴 High Risk</span></div>
+        </div>
+      </div>
+      <div class="mt-12 text-center bg-primary text-white rounded-3xl p-8">
+        <div class="text-4xl mb-3">🔬</div>
+        <h3 class="text-2xl font-bold mb-2">Not sure what your plant has?</h3>
+        <p class="text-green-100 mb-5">Let our AI diagnose it in seconds from a photo.</p>
+        <a href="diagnose.html" class="bg-white text-primary font-bold px-8 py-3 rounded-full hover:bg-green-50 transition-all">Diagnose Now →</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-dark text-white py-8 mt-12">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p class="text-accent font-semibold text-lg mb-1">🌿 Grow Mate AI</p>
+      <p class="text-green-300 text-sm">AI-powered plant health detection for everyone.</p>
+      <p class="text-green-500 text-xs mt-3">© 2025 Md Irfan Alam · Usha Martin University · Diploma in CSE</p>
+    </div>
+  </footer>
+
+  <script src="static/js/app.js"></script>
+  <script>
+    document.getElementById('searchInput').addEventListener('input', function() {
+      const q = this.value.toLowerCase();
+      document.querySelectorAll('.disease-card').forEach(card => {
+        card.style.display = card.textContent.toLowerCase().includes(q) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>

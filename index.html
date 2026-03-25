@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grow Mate AI — Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="static/css/style.css"/>
+  <script>tailwind.config={theme:{extend:{colors:{primary:'#16a34a',secondary:'#15803d',accent:'#bbf7d0',dark:'#14532d',soft:'#f0fdf4'},fontFamily:{poppins:['Poppins','sans-serif']}}}}</script>
+</head>
+<body class="font-poppins bg-soft min-h-screen flex flex-col">
+  <nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-primary font-bold text-xl"><span class="text-2xl">🌿</span> Grow Mate AI</a>
+      <div class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
+        <a href="index.html" class="nav-link hover:text-primary transition">Home</a>
+        <a href="diagnose.html" class="nav-link hover:text-primary transition">Diagnose</a>
+        <a href="buddy.html" class="nav-link hover:text-primary transition">Plant Buddy</a>
+        <a href="learn.html" class="nav-link hover:text-primary transition">Learn</a>
+        <a href="history.html" class="nav-link hover:text-primary transition">History</a>
+      </div>
+      <button id="menuBtn" class="md:hidden text-gray-600 text-2xl focus:outline-none"><i class="fas fa-bars"></i></button>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-t px-4 pb-4">
+      <a href="index.html" class="block py-2 text-gray-600 hover:text-primary">Home</a>
+      <a href="diagnose.html" class="block py-2 text-gray-600 hover:text-primary">Diagnose</a>
+      <a href="buddy.html" class="block py-2 text-gray-600 hover:text-primary">Plant Buddy</a>
+      <a href="learn.html" class="block py-2 text-gray-600 hover:text-primary">Learn</a>
+      <a href="history.html" class="block py-2 text-gray-600 hover:text-primary">History</a>
+    </div>
+  </nav>
+
+  <main class="flex-1">
+    <section class="relative overflow-hidden bg-gradient-to-br from-green-900 via-green-700 to-green-500 text-white py-24 px-4">
+      <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/leaf.png')]"></div>
+      <div class="relative max-w-4xl mx-auto text-center">
+        <div class="text-7xl mb-4 animate-bounce-slow">🌱</div>
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-4 leading-tight">Your AI Plant<br><span class="text-green-200">Health Doctor</span></h1>
+        <p class="text-green-100 text-lg md:text-xl max-w-2xl mx-auto mb-8">Upload a photo of any plant leaf. Our AI will instantly diagnose diseases and give you simple, actionable care tips — no expertise needed.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="diagnose.html" class="btn-primary px-8 py-4 rounded-full text-lg font-bold shadow-lg hover:shadow-xl transition-all"><i class="fas fa-leaf mr-2"></i> Diagnose My Plant</a>
+          <a href="buddy.html" class="bg-white text-green-700 px-8 py-4 rounded-full text-lg font-bold shadow-lg hover:bg-green-50 transition-all"><i class="fas fa-seedling mr-2"></i> Meet My Buddy</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 px-4 bg-white">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-dark mb-2">How It Works</h2>
+        <p class="text-center text-gray-500 mb-12">Three simple steps to healthy plants</p>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="step-card text-center p-8 rounded-2xl bg-soft border border-green-100 hover:shadow-lg transition-all">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fas fa-camera text-primary text-2xl"></i></div>
+            <div class="step-number">01</div>
+            <h3 class="font-bold text-dark text-xl mb-2">Upload Photo</h3>
+            <p class="text-gray-500 text-sm">Take or upload a clear photo of your plant's leaf in JPG or PNG format.</p>
+          </div>
+          <div class="step-card text-center p-8 rounded-2xl bg-soft border border-green-100 hover:shadow-lg transition-all">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fas fa-robot text-primary text-2xl"></i></div>
+            <div class="step-number">02</div>
+            <h3 class="font-bold text-dark text-xl mb-2">AI Analyzes</h3>
+            <p class="text-gray-500 text-sm">Our AI vision model scans the image and identifies any health issues instantly.</p>
+          </div>
+          <div class="step-card text-center p-8 rounded-2xl bg-soft border border-green-100 hover:shadow-lg transition-all">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fas fa-notes-medical text-primary text-2xl"></i></div>
+            <div class="step-number">03</div>
+            <h3 class="font-bold text-dark text-xl mb-2">Get Care Tips</h3>
+            <p class="text-gray-500 text-sm">Receive a clear diagnosis with easy-to-follow care recommendations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 px-4 bg-gradient-to-b from-soft to-white">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-dark mb-2">Why Grow Mate AI?</h2>
+        <p class="text-center text-gray-500 mb-12">Built for farmers, gardeners, students, and kids</p>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="feature-card flex items-start gap-4 p-6 bg-white rounded-2xl shadow-sm border border-green-50 hover:border-green-200 transition-all"><div class="text-3xl">⚡</div><div><h3 class="font-semibold text-dark text-lg">Instant Diagnosis</h3><p class="text-gray-500 text-sm mt-1">Get results in seconds — no waiting, no forms.</p></div></div>
+          <div class="feature-card flex items-start gap-4 p-6 bg-white rounded-2xl shadow-sm border border-green-50 hover:border-green-200 transition-all"><div class="text-3xl">🌍</div><div><h3 class="font-semibold text-dark text-lg">Multilingual Support</h3><p class="text-gray-500 text-sm mt-1">Get results in English, Hindi, or Bengali — accessible to all.</p></div></div>
+          <div class="feature-card flex items-start gap-4 p-6 bg-white rounded-2xl shadow-sm border border-green-50 hover:border-green-200 transition-all"><div class="text-3xl">🎮</div><div><h3 class="font-semibold text-dark text-lg">Gamified for Kids</h3><p class="text-gray-500 text-sm mt-1">Name your plant buddy, earn points, and make learning fun!</p></div></div>
+          <div class="feature-card flex items-start gap-4 p-6 bg-white rounded-2xl shadow-sm border border-green-50 hover:border-green-200 transition-all"><div class="text-3xl">📚</div><div><h3 class="font-semibold text-dark text-lg">Learn & Grow</h3><p class="text-gray-500 text-sm mt-1">Explore our knowledge base of common plant diseases and remedies.</p></div></div>
+          <div class="feature-card flex items-start gap-4 p-6 bg-white rounded-2xl shadow-sm border border-green-50 hover:border-green-200 transition-all"><div class="text-3xl">📋</div><div><h3 class="font-semibold text-dark text-lg">Scan History</h3><p class="text-gray-500 text-sm mt-1">Track all past diagnoses saved locally in your browser.</p></div></div>
+          <div class="feature-card flex items-start gap-4 p-6 bg-white rounded-2xl shadow-sm border border-green-50 hover:border-green-200 transition-all"><div class="text-3xl">🔒</div><div><h3 class="font-semibold text-dark text-lg">No Login Required</h3><p class="text-gray-500 text-sm mt-1">Just open and use — no sign-up, no personal data collected.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 px-4 bg-primary text-white text-center">
+      <h2 class="text-3xl font-bold mb-3">Ready to check your plant's health?</h2>
+      <p class="text-green-100 mb-6 text-lg">It's free, fast, and requires no technical knowledge.</p>
+      <a href="diagnose.html" class="bg-white text-primary font-bold px-10 py-4 rounded-full text-lg hover:bg-green-50 transition-all shadow-lg">Start Diagnosing Now →</a>
+    </section>
+  </main>
+
+  <footer class="bg-dark text-white py-8 mt-12">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p class="text-accent font-semibold text-lg mb-1">🌿 Grow Mate AI</p>
+      <p class="text-green-300 text-sm">AI-powered plant health detection for everyone.</p>
+      <p class="text-green-500 text-xs mt-3">© 2025 Md Irfan Alam · Usha Martin University · Diploma in CSE</p>
+    </div>
+  </footer>
+  <script src="static/js/app.js"></script>
+</body>
+</html>
